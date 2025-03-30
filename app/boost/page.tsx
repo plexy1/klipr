@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function BoostPage() {
   return (
-    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] flex flex-col">
+    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] flex flex-col boost-page-font">
       {/* Header */}
       <header className="w-full py-6 px-4 sm:px-8 flex justify-between items-center">
         <Link href="/" className="text-3xl font-bold custom-font flex flex-col items-center">
@@ -289,11 +289,11 @@ export default function BoostPage() {
       {/* Footer */}
       <footer className="w-full py-8 border-t border-[var(--foreground)] border-opacity-10">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-8 flex flex-col sm:flex-row justify-between items-center">
-          <div className="font-mono text-sm mb-4 sm:mb-0">© KLIPR media</div>
+          <div className="font-mono text-sm mb-4 sm:mb-0">© KLIPR Media</div>
           <div className="flex gap-6">
             <a href="#" className="social-link">Twitter</a>
             <a href="#" className="social-link">LinkedIn</a>
-            <a href="#" className="social-link">Instagram</a>
+            <a href="https://instagram.com/kliprmedia" className="social-link">Instagram</a>
           </div>
         </div>
       </footer>

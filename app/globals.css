@@ -53,6 +53,22 @@ body {
   max-width: 100vw;
 }
 
+.boost-page-font {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+.boost-page-font p:not(.boost-form p) {
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+}
+
+.boost-page-font h2:not(.custom-font), 
+.boost-page-font h3:not(.custom-font), 
+.boost-page-font h4:not(.custom-font) {
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
 .custom-font {
   font-family: 'PGF Qualta Bold', Arial, Helvetica, sans-serif;
 }
@@ -364,6 +380,16 @@ body {
   transition: all 0.3s ease;
 }
 
+.boost-card h3 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.boost-card p {
+  opacity: 0.8;
+  line-height: 1.6;
+}
+
 .boost-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -407,13 +433,16 @@ body {
 }
 
 .form-group input, 
-.form-group textarea {
+.form-group textarea,
+.boost-form .form-group label,
+.boost-form .submit-button {
+  font-family: "SF Mono", "Menlo", "Monaco", "Courier New", monospace !important;
+  font-weight: normal !important;
   background-color: transparent;
   border: 1px solid var(--foreground);
   border-opacity: 0.2;
   padding: 0.75rem 1rem;
   color: var(--foreground);
-  font-family: "SF Mono", "Menlo", "Monaco", "Courier New", monospace;
   border-radius: 4px;
 }
 
@@ -523,6 +552,11 @@ body {
   letter-spacing: 1px;
 }
 
+.boost-page-font .package-subtitle,
+.boost-page-font .package-price {
+  font-family: var(--font-geist-mono), "SF Mono", "Menlo", monospace;
+}
+
 .package-subtitle {
   font-family: "SF Mono", "Menlo", "Monaco", "Courier New", monospace;
   font-size: 1rem;
@@ -557,6 +591,13 @@ body {
   list-style-type: disc;
   padding-left: 1.5rem;
   margin-bottom: 1.5rem;
+}
+
+.boost-page-font .package-list li,
+.boost-page-font .package-description {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  letter-spacing: -0.01em;
+  line-height: 1.6;
 }
 
 .package-list li {
@@ -923,4 +964,16 @@ body {
 .mac-terminal {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.boost-page-font .feature-section p {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  letter-spacing: -0.01em;
+  line-height: 1.7;
+}
+
+.boost-page-font .btn-primary {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
