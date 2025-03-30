@@ -1,6 +1,85 @@
+"use client";
+
 import Link from "next/link";
+import { useState, ChangeEvent, FormEvent } from "react";
+
+interface FormData {
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+  message: string;
+}
+
+interface FormStatus {
+  submitting: boolean;
+  submitted: boolean;
+  error: string | null;
+}
 
 export default function BoostPage() {
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    message: ""
+  });
+  const [formStatus, setFormStatus] = useState<FormStatus>({
+    submitting: false,
+    submitted: false,
+    error: null
+  });
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus({ ...formStatus, submitting: true });
+
+    try {
+      // Replace with your actual Google Sheets API endpoint
+      // This should be the published web app URL from your Google Apps Script
+      const sheetUrl = "https://script.google.com/macros/s/AKfycbzIxq8fdMB0qgRyy8OQ-yHjBV5LuKt7q7k9tylap5jPecjZ6qK9ru637XCk9b4XVGsX0Q/exec";
+      
+      const response = await fetch(sheetUrl, {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "no-cors", // Required for Google Apps Script
+      });
+
+      // Since no-cors mode doesn't allow reading the response
+      // We assume success after submission
+      setFormStatus({
+        submitting: false,
+        submitted: true,
+        error: null
+      });
+      
+      // Reset form after successful submission
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        message: ""
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setFormStatus({
+        submitting: false,
+        submitted: false,
+        error: "Failed to submit form. Please try again."
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] flex flex-col boost-page-font">
       {/* Header */}
@@ -37,36 +116,86 @@ export default function BoostPage() {
             Fill out the form below to start your brand transformation journey with KLIPR Media.
           </p>
           
-          <form className="boost-form">
-            <div className="form-group">
-              <label htmlFor="name">Full Name</label>
-              <input type="text" id="name" placeholder="Your name" />
+          {formStatus.submitted ? (
+            <div className="success-message p-6 bg-green-100 border border-green-300 rounded-lg text-center">
+              <h3 className="text-xl font-bold mb-2 text-green-800">Thank You!</h3>
+              <p className="text-green-700">Your information has been successfully submitted. We'll be in touch soon!</p>
             </div>
-            
-            <div className="form-group">
-              <label htmlFor="email">Email Address</label>
-              <input type="email" id="email" placeholder="your@email.com" />
-            </div>
-            
-            <div className="form-group">
-              <label htmlFor="phone">Phone Number</label>
-              <input type="tel" id="phone" placeholder="+1 (555) 123-4567" />
-            </div>
-            
-            <div className="form-group">
-              <label htmlFor="company">Company</label>
-              <input type="text" id="company" placeholder="Your company" />
-            </div>
-            
-            <div className="form-group full-width">
-              <label htmlFor="message">Tell us about your brand goals</label>
-              <textarea id="message" rows={4} placeholder="What are you hoping to achieve?"></textarea>
-            </div>
-            
-            <button type="submit" className="submit-button">
-              SUBMIT REQUEST
-            </button>
-          </form>
+          ) : (
+            <form className="boost-form" onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="name">Full Name</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  placeholder="Your name" 
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="email">Email Address</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  placeholder="your@email.com" 
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="phone">Phone Number</label>
+                <input 
+                  type="tel" 
+                  id="phone" 
+                  placeholder="+1 (555) 123-4567" 
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="company">Company</label>
+                <input 
+                  type="text" 
+                  id="company" 
+                  placeholder="Your company" 
+                  value={formData.company}
+                  onChange={handleInputChange}
+                />
+              </div>
+              
+              <div className="form-group full-width">
+                <label htmlFor="message">Tell us about your brand goals</label>
+                <textarea 
+                  id="message" 
+                  rows={4} 
+                  placeholder="What are you hoping to achieve?"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                ></textarea>
+              </div>
+              
+              <button 
+                type="submit" 
+                className="submit-button"
+                disabled={formStatus.submitting}
+              >
+                {formStatus.submitting ? "SUBMITTING..." : "SUBMIT REQUEST"}
+              </button>
+              
+              {formStatus.error && (
+                <p className="error-message text-red-600 mt-4 text-center">{formStatus.error}</p>
+              )}
+              
+              
+            </form>
+          )}
         </section>
         
         {/* Services Section - Moved below the form */}
@@ -299,19 +428,4 @@ export default function BoostPage() {
       </footer>
     </div>
   );
-}
-
-export function generateMetadata() {
-  return {
-    title: "KLIPR | Boost Your Brand",
-    description: "Transform your brand with KLIPR's data-driven creativity and technology solutions",
-  };
-}
-
-export function viewport() {
-  return {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-  };
 } 
