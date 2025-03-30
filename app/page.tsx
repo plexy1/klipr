@@ -36,12 +36,13 @@ function KliprLoadingAnimation() {
   const buttonDelay = loadingAnimationDelay + 2;
   
   return (
-    <div className="flex flex-col items-center mt-[-10vh]">
+    <div className="flex flex-col items-center mt-[-5vh] sm:mt-[-10vh] px-4 sm:px-0 w-full">
+      {/* KLIPR Logo */}
       <div className="flex overflow-hidden">
         {Array.from(text).map((letter, index) => (
           <div
             key={index}
-            className="text-6xl md:text-8xl font-bold relative custom-font"
+            className="text-4xl sm:text-6xl md:text-8xl font-bold relative custom-font"
             style={{
               animation: `fadeIn 0.8s ease-in-out ${index * 0.05}s forwards`,
               opacity: 0,
@@ -52,7 +53,7 @@ function KliprLoadingAnimation() {
           </div>
         ))}
         <div
-          className="text-6xl md:text-8xl font-bold relative custom-font"
+          className="text-4xl sm:text-6xl md:text-8xl font-bold relative custom-font"
           style={{
             animation: `fadeIn 0.8s ease-in-out ${text.length * 0.05}s forwards, blink 1s infinite ${text.length * 0.05 + 0.8}s`,
             opacity: 0,
@@ -63,8 +64,9 @@ function KliprLoadingAnimation() {
         </div>
       </div>
       
+      {/* Terminal Window */}
       <div 
-        className="mt-24 w-full max-w-[800px] mac-terminal"
+        className="mt-16 sm:mt-24 w-full max-w-[800px] mac-terminal"
         style={{
           animation: `fadeIn 0.8s ease-out forwards`,
           animationDelay: `${delayAfterLogo - 0.3}s`,
@@ -85,20 +87,19 @@ function KliprLoadingAnimation() {
               key={index}
               className={`
                 terminal-line
-                ${index === terminalLines.length - 1 ? 'text-xl md:text-2xl font-bold glow-text' : 'text-md md:text-lg'}
+                ${index === terminalLines.length - 1 ? 'text-lg sm:text-xl md:text-2xl font-bold glow-text' : 'text-sm sm:text-md md:text-lg'}
               `}
             >
               <div
-                className="flex nowrap overflow-hidden"
+                className="terminal-text-container"
                 style={{
                   animation: `typeWriter ${typingDuration}s ease-out forwards`,
                   animationDelay: `${getLineDelay(index)}s`,
                   opacity: 0,
-                  width: "0%",
-                  whiteSpace: "nowrap"
+                  width: "0%"
                 }}
               >
-                <span className="flex-shrink-0">{line}</span>
+                {line}
               </div>
             </div>
           ))}
