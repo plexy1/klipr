@@ -152,7 +152,7 @@ export default function BoostPage() {
             {/* Package 2 */}
             <div className="package-card premium">
               <div className="package-header">
-                <h3 className="package-title">SOCIAL MEDIA + PERFORMANCE MARKETING</h3>
+                <h3 className="package-title">SOCIAL MEDIA <span style={{fontFamily: 'sans-serif'}}>+</span> PERFORMANCE MARKETING</h3>
                 <div className="package-subtitle">PACKAGE - 2</div>
                 <div className="package-price">PRICE: CAD 2000/MONTH</div>
               </div>
