@@ -1,8 +1,24 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'PGF Qualta Bold';
+  src: url('/fonts/pgf-qualta-bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --glow-color: rgba(255, 255, 255, 0.3);
+  --terminal-bg: rgba(0, 0, 0, 0.85);
+  --terminal-text: #f8f8f8;
+  --terminal-header: #333;
+  --progress-success: #27c93f;
+  --button-bg: #27c93f;
+  --button-hover: #1f9f32;
+  --button-text: #ffffff;
 }
 
 @theme inline {
@@ -16,6 +32,14 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --glow-color: rgba(255, 255, 255, 0.3);
+    --terminal-bg: rgba(0, 0, 0, 0.85);
+    --terminal-text: #f8f8f8;
+    --terminal-header: #333;
+    --progress-success: #27c93f;
+    --button-bg: #27c93f;
+    --button-hover: #1f9f32;
+    --button-text: #ffffff;
   }
 }
 
@@ -23,4 +47,210 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.custom-font {
+  font-family: 'PGF Qualta Bold', Arial, Helvetica, sans-serif;
+}
+
+/* Terminal Styling */
+.mac-terminal {
+  background-color: var(--terminal-bg);
+  color: var(--terminal-text);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  font-family: "SF Mono", "Menlo", "Monaco", "Courier New", monospace;
+}
+
+.terminal-header {
+  background-color: var(--terminal-header);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.terminal-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.terminal-button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.terminal-button.close {
+  background-color: #ff5f56;
+  border: 1px solid #e0443e;
+}
+
+.terminal-button.minimize {
+  background-color: #ffbd2e;
+  border: 1px solid #dea123;
+}
+
+.terminal-button.maximize {
+  background-color: #27c93f;
+  border: 1px solid #1aab29;
+}
+
+.terminal-title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #bbb;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.terminal-body {
+  padding: 16px;
+  min-height: 300px;
+}
+
+.terminal-line {
+  position: relative;
+  margin-bottom: 0.7rem;
+  font-family: "SF Mono", "Menlo", "Monaco", "Courier New", monospace;
+}
+
+.glow-text {
+  text-shadow: 0 0 5px var(--glow-color), 0 0 10px var(--glow-color), 0 0 15px var(--glow-color);
+  letter-spacing: 0.5px;
+}
+
+/* Terminal Loading Animation */
+.terminal-loader {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.loader-text {
+  font-size: 14px;
+  color: #bbb;
+}
+
+.progress-bar {
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background-color: var(--progress-success);
+  border-radius: 4px;
+}
+
+.success-message {
+  color: var(--progress-success);
+  font-weight: 500;
+}
+
+/* CTA Button */
+.cta-button {
+  margin-top: 40px;
+  padding: 14px 36px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: transparent;
+  color: var(--foreground);
+  border: 2px solid var(--foreground);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  letter-spacing: 2px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  font-family: 'PGF Qualta Bold', Arial, Helvetica, sans-serif;
+}
+
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: var(--foreground);
+  transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
+  z-index: -1;
+}
+
+.cta-button:hover {
+  color: var(--background);
+}
+
+.cta-button:hover::before {
+  left: 0;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes typeWriter {
+  0% {
+    width: 0;
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
+@keyframes progressFill {
+  0% {
+    width: 0%;
+  }
+  60% {
+    width: 80%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* Copyright Text */
+.copyright-text {
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--foreground);
+  opacity: 0.8;
+  font-family: "SF Mono", "Menlo", "Monaco", "Courier New", monospace;
+  text-align: center;
 }

@@ -1,103 +1,174 @@
-import Image from "next/image";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+    <div className="flex items-center justify-center min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+      <Suspense fallback={<div>Loading...</div>}>
+        <KliprLoadingAnimation />
+      </Suspense>
     </div>
   );
+}
+
+function KliprLoadingAnimation() {
+  const text = "KLIPR";
+  const terminalLines = [
+    "Transform your brand's reach with data-driven creativity.",
+    "Where innovation meets impact.",
+    "Your vision, amplified by our algorithm's precision.",
+    "Your Brand, Our Algorithm."
+  ];
+  
+  const delayAfterLogo = 1.5; // seconds of delay after logo animation completes
+  const typingDuration = 2; // seconds for each line to type out
+  const lineGap = 0.3; // consistent delay between lines
+  
+  // Calculate delays for each line with equal spacing
+  const getLineDelay = (index: number) => {
+    return delayAfterLogo + index * (typingDuration + lineGap);
+  };
+  
+  // Calculate when the last line finishes
+  const lastLineCompletionTime = getLineDelay(terminalLines.length - 1) + typingDuration;
+  // Loading animation starts right after the last line
+  const loadingAnimationDelay = lastLineCompletionTime + 0.2;
+  // Button appears after loading completes
+  const buttonDelay = loadingAnimationDelay + 2;
+  
+  return (
+    <div className="flex flex-col items-center mt-[-10vh]">
+      <div className="flex overflow-hidden">
+        {Array.from(text).map((letter, index) => (
+          <div
+            key={index}
+            className="text-6xl md:text-8xl font-bold relative custom-font"
+            style={{
+              animation: `fadeIn 0.8s ease-in-out ${index * 0.05}s forwards`,
+              opacity: 0,
+              transform: "translateY(20px)",
+            }}
+          >
+            {letter}
+          </div>
+        ))}
+        <div
+          className="text-6xl md:text-8xl font-bold relative custom-font"
+          style={{
+            animation: `fadeIn 0.8s ease-in-out ${text.length * 0.05}s forwards, blink 1s infinite ${text.length * 0.05 + 0.8}s`,
+            opacity: 0,
+            transform: "translateY(20px)",
+          }}
+        >
+          .
+        </div>
+      </div>
+      
+      <div 
+        className="mt-24 w-full max-w-[800px] mac-terminal"
+        style={{
+          animation: `fadeIn 0.8s ease-out forwards`,
+          animationDelay: `${delayAfterLogo - 0.3}s`,
+          opacity: 0
+        }}
+      >
+        <div className="terminal-header">
+          <div className="terminal-buttons">
+            <span className="terminal-button close"></span>
+            <span className="terminal-button minimize"></span>
+            <span className="terminal-button maximize"></span>
+          </div>
+          <div className="terminal-title">klipr@terminal ~ %</div>
+        </div>
+        <div className="terminal-body">
+          {terminalLines.map((line, index) => (
+            <div 
+              key={index}
+              className={`
+                terminal-line
+                ${index === terminalLines.length - 1 ? 'text-xl md:text-2xl font-bold glow-text' : 'text-md md:text-lg'}
+              `}
+            >
+              <div
+                className="flex nowrap overflow-hidden"
+                style={{
+                  animation: `typeWriter ${typingDuration}s ease-out forwards`,
+                  animationDelay: `${getLineDelay(index)}s`,
+                  opacity: 0,
+                  width: "0%",
+                  whiteSpace: "nowrap"
+                }}
+              >
+                <span className="flex-shrink-0">{line}</span>
+              </div>
+            </div>
+          ))}
+          
+          {/* Terminal loading animation */}
+          <div 
+            className="terminal-line mt-4"
+            style={{
+              animation: `fadeIn 0.3s ease-out forwards`,
+              animationDelay: `${loadingAnimationDelay}s`,
+              opacity: 0
+            }}
+          >
+            <div className="terminal-loader">
+              <span className="loader-text">Analyzing brand potential</span>
+              <div className="progress-bar">
+                <div 
+                  className="progress-fill"
+                  style={{
+                    animation: `progressFill 1.5s ease-in-out forwards`,
+                    animationDelay: `${loadingAnimationDelay + 0.3}s`
+                  }}
+                ></div>
+              </div>
+              <div 
+                className="success-message"
+                style={{
+                  animation: `fadeIn 0.5s ease-out forwards`,
+                  animationDelay: `${loadingAnimationDelay + 1.8}s`,
+                  opacity: 0
+                }}
+              >
+                Success! Brand boost ready.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* CTA Button */}
+      <a
+        href="#"
+        className="cta-button"
+        style={{
+          animation: `fadeIn 0.5s ease-out forwards`,
+          animationDelay: `${buttonDelay}s`,
+          opacity: 0
+        }}
+      >
+        BOOST YOUR BRAND
+      </a>
+      
+      {/* Copyright */}
+      <div 
+        className="copyright-text"
+        style={{
+          animation: `fadeIn 0.5s ease-out forwards`,
+          animationDelay: `${buttonDelay + 0.2}s`,
+          opacity: 0
+        }}
+      >
+        © KLIPR media
+      </div>
+    </div>
+  );
+}
+
+export function generateMetadata() {
+  return {
+    title: "KLIPR",
+    description: "A modern minimal platform",
+  };
 }
