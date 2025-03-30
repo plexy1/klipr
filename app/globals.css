@@ -853,27 +853,6 @@ body {
     overflow-wrap: break-word;
     word-break: break-word;
   }
-  
-  /* Hide scrollbars on mobile */
-  .terminal-body::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .terminal-body {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  }
-  
-  /* Ensure content remains scrollable but without visible scrollbar */
-  html, body {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  
-  html::-webkit-scrollbar, 
-  body::-webkit-scrollbar {
-    display: none;
-  }
 }
 
 .mobile-container {
@@ -911,16 +890,28 @@ body {
   }
 }
 
-/* Hide all scrollbars in the terminal and its children */
-.terminal-text-container::-webkit-scrollbar,
-.terminal-line::-webkit-scrollbar,
-.mac-terminal::-webkit-scrollbar {
+/* Hide scrollbars in the terminal and its children - only on home page */
+.home-page .terminal-text-container::-webkit-scrollbar,
+.home-page .terminal-line::-webkit-scrollbar,
+.home-page .mac-terminal::-webkit-scrollbar {
   display: none;
 }
 
-.terminal-text-container,
-.terminal-line,
-.mac-terminal {
+.home-page .terminal-text-container,
+.home-page .terminal-line,
+.home-page .mac-terminal {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Hide body/html scrollbars only on home page */
+.home-page body::-webkit-scrollbar,
+.home-page html::-webkit-scrollbar {
+  display: none !important;
+}
+
+.home-page body,
+.home-page html {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
 }
