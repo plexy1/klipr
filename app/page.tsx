@@ -1,16 +1,22 @@
-import { Suspense } from "react";
+'use client';
+
+import { Suspense, useState, MouseEvent, ReactNode } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  return (
-    <div className="flex items-center justify-center min-h-screen bg-[var(--background)] text-[var(--foreground)]">
-      <Suspense fallback={<div>Loading...</div>}>
-        <KliprLoadingAnimation />
-      </Suspense>
-    </div>
-  );
-}
-
-function KliprLoadingAnimation() {
+  const router = useRouter();
+  const [showTransition, setShowTransition] = useState(false);
+  
+  const handleBoostClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setShowTransition(true);
+    
+    // Navigate after animation plays
+    setTimeout(() => {
+      router.push('/boost');
+    }, 1700); // Slightly longer than the animation duration
+  };
+  
   const text = "KLIPR";
   const terminalLines = [
     "Transform your brand's reach with data-driven creativity.",
@@ -20,47 +26,142 @@ function KliprLoadingAnimation() {
   ];
   
   const delayAfterLogo = 1.5; // seconds of delay after logo animation completes
-  const typingDuration = 2; // seconds for each line to type out
-  const lineGap = 0.3; // consistent delay between lines
+  const typingDurationFast = 0.8; // faster typing for first three lines (reduced from 1.2)
+  const typingDurationNormal = 1.2; // normal typing for last line (reduced from 2)
+  const lineGap = 0.2; // consistent delay between lines (reduced from 0.3)
   
-  // Calculate delays for each line with equal spacing
+  // Calculate delays for each line with equal spacing but faster typing for first three lines
   const getLineDelay = (index: number) => {
-    return delayAfterLogo + index * (typingDuration + lineGap);
+    // Calculate total time for each previous line (typing + gap)
+    let totalDelay = delayAfterLogo;
+    
+    for (let i = 0; i < index; i++) {
+      // Last line uses normal typing duration, others use fast
+      const duration = i === 3 ? typingDurationNormal : typingDurationFast;
+      totalDelay += duration + lineGap;
+    }
+    
+    return totalDelay;
+  };
+  
+  // Get typing duration based on line index
+  const getTypingDuration = (index: number) => {
+    return index === terminalLines.length - 1 ? typingDurationNormal : typingDurationFast;
   };
   
   // Calculate when the last line finishes
-  const lastLineCompletionTime = getLineDelay(terminalLines.length - 1) + typingDuration;
+  const lastLineCompletionTime = getLineDelay(terminalLines.length - 1) + typingDurationNormal;
   // Loading animation starts right after the last line
   const loadingAnimationDelay = lastLineCompletionTime + 0.2;
   // Button appears after loading completes
   const buttonDelay = loadingAnimationDelay + 2;
   
   return (
+    <div className="flex items-center justify-center min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+      <Suspense fallback={<div>Loading...</div>}>
+        <KliprLoadingAnimation 
+          text={text}
+          terminalLines={terminalLines}
+          getLineDelay={getLineDelay}
+          getTypingDuration={getTypingDuration}
+          delayAfterLogo={delayAfterLogo}
+          loadingAnimationDelay={loadingAnimationDelay}
+          buttonDelay={buttonDelay}
+          handleBoostClick={handleBoostClick}
+        />
+        
+        {/* Page Transition Animation */}
+        {showTransition && (
+          <div className="fixed inset-0 z-50 bg-[var(--background)] flex items-center justify-center">
+            <div className="w-[300px] sm:w-[500px]">
+              <div className="mac-terminal">
+                <div className="terminal-header">
+                  <div className="terminal-buttons">
+                    <span className="terminal-button close"></span>
+                    <span className="terminal-button minimize"></span>
+                    <span className="terminal-button maximize"></span>
+                  </div>
+                  <div className="terminal-title">klipr@terminal ~ %</div>
+                </div>
+                <div className="terminal-body py-8">
+                  <div className="terminal-line">
+                    <div className="terminal-text-container">
+                      <span className="text-[var(--terminal-text)]">% Loading boost page...</span>
+                    </div>
+                  </div>
+                  <div className="mt-4">
+                    <div className="progress-bar">
+                      <div className="progress-fill fast-fill"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </Suspense>
+    </div>
+  );
+}
+
+interface KliprLoadingAnimationProps {
+  text: string;
+  terminalLines: string[];
+  getLineDelay: (index: number) => number;
+  getTypingDuration: (index: number) => number;
+  delayAfterLogo: number;
+  loadingAnimationDelay: number;
+  buttonDelay: number;
+  handleBoostClick: (e: MouseEvent<HTMLAnchorElement>) => void;
+}
+
+function KliprLoadingAnimation({ 
+  text, 
+  terminalLines, 
+  getLineDelay, 
+  getTypingDuration, 
+  delayAfterLogo, 
+  loadingAnimationDelay, 
+  buttonDelay,
+  handleBoostClick
+}: KliprLoadingAnimationProps) {
+  return (
     <div className="flex flex-col items-center mt-[-5vh] sm:mt-[-10vh] px-4 sm:px-0 w-full">
       {/* KLIPR Logo */}
-      <div className="flex overflow-hidden">
-        {Array.from(text).map((letter, index) => (
+      <div className="flex flex-col items-center">
+        <div className="flex overflow-hidden">
+          {Array.from(text).map((letter, index) => (
+            <div
+              key={index}
+              className="text-4xl sm:text-6xl md:text-8xl font-bold relative custom-font"
+              style={{
+                animation: `fadeIn 0.8s ease-in-out ${index * 0.05}s forwards`,
+                opacity: 0,
+                transform: "translateY(20px)",
+              }}
+            >
+              {letter}
+            </div>
+          ))}
           <div
-            key={index}
             className="text-4xl sm:text-6xl md:text-8xl font-bold relative custom-font"
             style={{
-              animation: `fadeIn 0.8s ease-in-out ${index * 0.05}s forwards`,
+              animation: `fadeIn 0.8s ease-in-out ${text.length * 0.05}s forwards, blink 1s infinite ${text.length * 0.05 + 0.8}s`,
               opacity: 0,
               transform: "translateY(20px)",
             }}
           >
-            {letter}
+            .
           </div>
-        ))}
-        <div
-          className="text-4xl sm:text-6xl md:text-8xl font-bold relative custom-font"
+        </div>
+        <div 
+          className="text-sm sm:text-base md:text-lg font-mono tracking-[0.2em] mt-2"
           style={{
-            animation: `fadeIn 0.8s ease-in-out ${text.length * 0.05}s forwards, blink 1s infinite ${text.length * 0.05 + 0.8}s`,
+            animation: `fadeIn 0.8s ease-in-out ${text.length * 0.05 + 0.2}s forwards`,
             opacity: 0,
-            transform: "translateY(20px)",
           }}
         >
-          .
+          M E D I A
         </div>
       </div>
       
@@ -93,10 +194,11 @@ function KliprLoadingAnimation() {
               <div
                 className="terminal-text-container"
                 style={{
-                  animation: `typeWriter ${typingDuration}s ease-out forwards`,
+                  animation: `typeWriter ${getTypingDuration(index)}s ease-out forwards`,
                   animationDelay: `${getLineDelay(index)}s`,
                   opacity: 0,
-                  width: "0%"
+                  width: "0%",
+                  overflow: "hidden"
                 }}
               >
                 {line}
@@ -141,13 +243,14 @@ function KliprLoadingAnimation() {
       
       {/* CTA Button */}
       <a
-        href="#"
-        className="cta-button"
+        href="/boost"
+        className="btn-primary mt-8 sm:mt-12"
         style={{
           animation: `fadeIn 0.5s ease-out forwards`,
           animationDelay: `${buttonDelay}s`,
           opacity: 0
         }}
+        onClick={handleBoostClick}
       >
         BOOST YOUR BRAND
       </a>
@@ -165,11 +268,4 @@ function KliprLoadingAnimation() {
       </div>
     </div>
   );
-}
-
-export function generateMetadata() {
-  return {
-    title: "KLIPR",
-    description: "A modern minimal platform",
-  };
 }
