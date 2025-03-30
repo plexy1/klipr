@@ -57,7 +57,7 @@ export default function Home() {
   const buttonDelay = loadingAnimationDelay + 2;
   
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[var(--background)] text-[var(--foreground)] overflow-hidden home-page">
+    <div className="flex items-center justify-center min-h-screen bg-[var(--background)] text-[var(--foreground)] overflow-hidden">
       <Suspense fallback={<div>Loading...</div>}>
         <KliprLoadingAnimation 
           text={text}
