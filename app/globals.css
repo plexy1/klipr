@@ -50,6 +50,7 @@ body {
   overflow-x: hidden;
   width: 100%;
   position: relative;
+  max-width: 100vw;
 }
 
 .custom-font {
@@ -125,6 +126,7 @@ body {
   padding: 12px;
   min-height: 200px;
   width: 100%;
+  transition: min-height 0.3s ease-out;
 }
 
 @media (max-width: 640px) {
@@ -287,11 +289,11 @@ body {
 @keyframes fadeIn {
   0% {
     opacity: 0;
-    transform: translateY(25px);
+    transform: translateY(15px);
   }
   60% {
     opacity: 1;
-    transform: translateY(-3px);
+    transform: translateY(-2px);
   }
   100% {
     opacity: 1;
@@ -774,5 +776,116 @@ body {
   .btn-primary {
     width: 100%;
     max-width: 280px;
+  }
+}
+
+/* Mobile containment fixes */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+  }
+  
+  .flex-col {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  .terminal-text-container {
+    max-width: 100%;
+  }
+  
+  /* Adjust animation to prevent off-screen movement */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    60% {
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Set fixed terminal dimensions for mobile */
+  .mac-terminal {
+    max-width: min(398px, 94vw);
+    width: min(398px, 94vw);
+    margin: 0 auto;
+  }
+  
+  .terminal-body {
+    height: 281.75px;
+    min-height: unset;
+    max-height: unset;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px 8px;
+    max-width: 100%;
+    word-break: break-word;
+  }
+  
+  /* Remove dynamic sizing that was causing issues */
+  .mobile-terminal-body {
+    height: 281.75px;
+    min-height: unset;
+  }
+  
+  /* Override any previous terminal body sizing */
+  .terminal-body:not(:empty) {
+    min-height: unset;
+  }
+  
+  /* Lines added to terminal body will naturally increase its size */
+  .terminal-line {
+    margin-bottom: 0.5rem;
+    max-width: 100%;
+  }
+  
+  .terminal-text-container {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+}
+
+.mobile-container {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+.animation-container {
+  max-width: 100%;
+  position: relative;
+}
+
+.safe-animation {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+/* Mobile containment fixes */
+
+@media (max-width: 480px) {
+  /* Very small mobile screens */
+  .terminal-line.text-lg {
+    font-size: 0.95rem;
+  }
+  
+  .terminal-line.text-xl, 
+  .terminal-line.text-2xl {
+    font-size: 1.1rem;
+  }
+  
+  .terminal-text-container {
+    font-size: 0.9rem;
+    line-height: 1.4;
   }
 }

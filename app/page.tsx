@@ -57,7 +57,7 @@ export default function Home() {
   const buttonDelay = loadingAnimationDelay + 2;
   
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+    <div className="flex items-center justify-center min-h-screen bg-[var(--background)] text-[var(--foreground)] overflow-hidden">
       <Suspense fallback={<div>Loading...</div>}>
         <KliprLoadingAnimation 
           text={text}
@@ -72,8 +72,8 @@ export default function Home() {
         
         {/* Page Transition Animation */}
         {showTransition && (
-          <div className="fixed inset-0 z-50 bg-[var(--background)] flex items-center justify-center">
-            <div className="w-[300px] sm:w-[500px]">
+          <div className="fixed inset-0 z-50 bg-[var(--background)] flex items-center justify-center overflow-hidden">
+            <div>
               <div className="mac-terminal">
                 <div className="terminal-header">
                   <div className="terminal-buttons">
@@ -83,7 +83,7 @@ export default function Home() {
                   </div>
                   <div className="terminal-title">klipr@terminal ~ %</div>
                 </div>
-                <div className="terminal-body py-8">
+                <div className="terminal-body py-6 sm:py-8 mobile-terminal-body">
                   <div className="terminal-line">
                     <div className="terminal-text-container">
                       <span className="text-[var(--terminal-text)]">% Loading boost page...</span>
@@ -126,14 +126,14 @@ function KliprLoadingAnimation({
   handleBoostClick
 }: KliprLoadingAnimationProps) {
   return (
-    <div className="flex flex-col items-center mt-[-5vh] sm:mt-[-10vh] px-4 sm:px-0 w-full">
+    <div className="flex flex-col items-center mt-[-5vh] sm:mt-[-10vh] px-4 sm:px-0 w-full mobile-container">
       {/* KLIPR Logo */}
       <div className="flex flex-col items-center">
-        <div className="flex overflow-hidden">
+        <div className="flex overflow-hidden animation-container">
           {Array.from(text).map((letter, index) => (
             <div
               key={index}
-              className="text-4xl sm:text-6xl md:text-8xl font-bold relative custom-font"
+              className="text-4xl sm:text-6xl md:text-8xl font-bold relative custom-font safe-animation"
               style={{
                 animation: `fadeIn 0.8s ease-in-out ${index * 0.05}s forwards`,
                 opacity: 0,
@@ -155,7 +155,7 @@ function KliprLoadingAnimation({
           </div>
         </div>
         <div 
-          className="text-sm sm:text-base md:text-lg font-mono tracking-[0.2em] mt-2"
+          className="text-sm sm:text-base md:text-lg font-mono tracking-[0.2em] mt-2 mb-15 sm:mb-6"
           style={{
             animation: `fadeIn 0.8s ease-in-out ${text.length * 0.05 + 0.2}s forwards`,
             opacity: 0,
@@ -167,7 +167,7 @@ function KliprLoadingAnimation({
       
       {/* Terminal Window */}
       <div 
-        className="mt-16 sm:mt-24 w-full max-w-[800px] mac-terminal"
+        className="mt-12 w-full sm:max-w-[800px] mac-terminal"
         style={{
           animation: `fadeIn 0.8s ease-out forwards`,
           animationDelay: `${delayAfterLogo - 0.3}s`,
@@ -182,7 +182,7 @@ function KliprLoadingAnimation({
           </div>
           <div className="terminal-title">klipr@terminal ~ %</div>
         </div>
-        <div className="terminal-body">
+        <div className="terminal-body mobile-terminal-body">
           {terminalLines.map((line, index) => (
             <div 
               key={index}
