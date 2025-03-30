@@ -45,7 +45,7 @@ export default function BoostPage() {
       // This should be the published web app URL from your Google Apps Script
       const sheetUrl = "https://script.google.com/macros/s/AKfycbzIxq8fdMB0qgRyy8OQ-yHjBV5LuKt7q7k9tylap5jPecjZ6qK9ru637XCk9b4XVGsX0Q/exec";
       
-      const response = await fetch(sheetUrl, {
+      await fetch(sheetUrl, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
@@ -119,7 +119,7 @@ export default function BoostPage() {
           {formStatus.submitted ? (
             <div className="success-message p-6 bg-green-100 border border-green-300 rounded-lg text-center">
               <h3 className="text-xl font-bold mb-2 text-green-800">Thank You!</h3>
-              <p className="text-green-700">Your information has been successfully submitted. We'll be in touch soon!</p>
+              <p className="text-green-700">Your information has been successfully submitted. We&apos;ll be in touch soon!</p>
             </div>
           ) : (
             <form className="boost-form" onSubmit={handleSubmit}>
@@ -193,7 +193,9 @@ export default function BoostPage() {
                 <p className="error-message text-red-600 mt-4 text-center">{formStatus.error}</p>
               )}
               
-              
+              <p className="text-xs text-center mt-3 opacity-70">
+                Your information will be securely stored in our Google Sheets database.
+              </p>
             </form>
           )}
         </section>
