@@ -853,6 +853,27 @@ body {
     overflow-wrap: break-word;
     word-break: break-word;
   }
+  
+  /* Hide scrollbars on mobile */
+  .terminal-body::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .terminal-body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  /* Ensure content remains scrollable but without visible scrollbar */
+  html, body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  html::-webkit-scrollbar, 
+  body::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .mobile-container {
@@ -888,4 +909,18 @@ body {
     font-size: 0.9rem;
     line-height: 1.4;
   }
+}
+
+/* Hide all scrollbars in the terminal and its children */
+.terminal-text-container::-webkit-scrollbar,
+.terminal-line::-webkit-scrollbar,
+.mac-terminal::-webkit-scrollbar {
+  display: none;
+}
+
+.terminal-text-container,
+.terminal-line,
+.mac-terminal {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
