@@ -192,10 +192,6 @@ export default function BoostPage() {
               {formStatus.error && (
                 <p className="error-message text-red-600 mt-4 text-center">{formStatus.error}</p>
               )}
-              
-              <p className="text-xs text-center mt-3 opacity-70">
-                Your information will be securely stored in our Google Sheets database.
-              </p>
             </form>
           )}
         </section>
