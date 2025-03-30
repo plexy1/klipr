@@ -275,7 +275,7 @@ export default function BoostPage() {
             Let&apos;s create something extraordinary together. Your journey to a stronger, more impactful brand presence starts with a single step.
           </p>
           
-          <div className="flex flex-col sm:flex-row justify-center gap-6 mt-10">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mt-10">
             <a href="#contact" className="btn-primary">
               START TODAY
             </a>

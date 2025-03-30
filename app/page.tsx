@@ -73,7 +73,7 @@ export default function Home() {
         {/* Page Transition Animation */}
         {showTransition && (
           <div className="fixed inset-0 z-50 bg-[var(--background)] flex items-center justify-center overflow-hidden">
-            <div>
+            <div className="w-full max-w-[1000px] px-4">
               <div className="mac-terminal">
                 <div className="terminal-header">
                   <div className="terminal-buttons">
@@ -167,7 +167,7 @@ function KliprLoadingAnimation({
       
       {/* Terminal Window */}
       <div 
-        className="mt-12 w-full sm:max-w-[800px] mac-terminal"
+        className="mt-12 w-full sm:max-w-[1000px] mac-terminal"
         style={{
           animation: `fadeIn 0.8s ease-out forwards`,
           animationDelay: `${delayAfterLogo - 0.3}s`,
