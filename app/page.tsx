@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useState, MouseEvent, ReactNode } from "react";
+import { Suspense, useState, MouseEvent } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Home() {

@@ -79,7 +79,7 @@ export default function BoostPage() {
             <div className="boost-card">
               <div className="card-icon">✨</div>
               <h3 className="text-xl font-bold mb-2">AI-Powered Analytics</h3>
-              <p>Get insights from our advanced algorithms designed to enhance your brand's presence and impact.</p>
+              <p>Get insights from our advanced algorithms designed to enhance your brand&apos;s presence and impact.</p>
             </div>
             
             <div className="boost-card">
@@ -109,7 +109,7 @@ export default function BoostPage() {
             <div className="boost-card">
               <div className="card-icon">🎨</div>
               <h3 className="text-xl font-bold mb-2">Custom Web Design</h3>
-              <p>Tailored websites that capture your brand's identity with seamless user experiences and robust management.</p>
+              <p>Tailored websites that capture your brand&apos;s identity with seamless user experiences and robust management.</p>
             </div>
           </div>
         </section>
@@ -221,8 +221,8 @@ export default function BoostPage() {
               </ul>
               
               <p>
-                Whether you're looking for a targeted campaign or a large-scale influencer collaboration, we provide
-                customized strategies that align with your brand goals and budget. Let's help your brand make a lasting
+                Whether you&apos;re looking for a targeted campaign or a large-scale influencer collaboration, we provide
+                customized strategies that align with your brand goals and budget. Let&apos;s help your brand make a lasting
                 impact!
               </p>
             </div>
@@ -236,7 +236,7 @@ export default function BoostPage() {
               <h3 className="text-xl font-bold mb-4">Additional Benefits of Partnering with Klipr Media</h3>
               
               <p className="mb-8 normal-case leading-relaxed">
-                We specialize in crafting custom websites that perfectly capture your brand's
+                We specialize in crafting custom websites that perfectly capture your brand&apos;s
                 identity, ensuring seamless user experiences and robust management.
                 Additionally, our interior design services create inspiring spaces that reflect your
                 unique style and vision.
@@ -255,8 +255,8 @@ export default function BoostPage() {
               <h3 className="text-xl font-bold mb-4">Next Steps</h3>
               
               <p className="normal-case leading-relaxed">
-                We're excited to help your business elevate its digital presence.
-                Let us know which package aligns best with your goals, and we'll schedule a
+                We&apos;re excited to help your business elevate its digital presence.
+                Let us know which package aligns best with your goals, and we&apos;ll schedule a
                 kickoff meeting to dive into the details.
                 Thank you for considering KLIPR Media as your trusted marketing partner. We look forward
                 to working together to make your business the talk of the town!
@@ -272,7 +272,7 @@ export default function BoostPage() {
           </h2>
           
           <p className="text-lg sm:text-xl mb-8 max-w-[700px] mx-auto opacity-90">
-            Let's create something extraordinary together. Your journey to a stronger, more impactful brand presence starts with a single step.
+            Let&apos;s create something extraordinary together. Your journey to a stronger, more impactful brand presence starts with a single step.
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center gap-6 mt-10">
@@ -305,5 +305,13 @@ export function generateMetadata() {
   return {
     title: "KLIPR | Boost Your Brand",
     description: "Transform your brand with KLIPR's data-driven creativity and technology solutions",
+  };
+}
+
+export function viewport() {
+  return {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
   };
 } 
