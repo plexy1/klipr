@@ -25,7 +25,7 @@ export default function Home() {
     "Your Brand, Our Algorithm."
   ];
   
-  const delayAfterLogo = 1.5; // seconds of delay after logo animation completes
+  const delayAfterLogo = 0.8; // seconds of delay after logo animation completes (reduced from 1.5)
   const typingDurationFast = 0.8; // faster typing for first three lines (reduced from 1.2)
   const typingDurationNormal = 1.2; // normal typing for last line (reduced from 2)
   const lineGap = 0.2; // consistent delay between lines (reduced from 0.3)
@@ -129,39 +129,19 @@ function KliprLoadingAnimation({
     <div className="flex flex-col items-center mt-[-5vh] sm:mt-[-10vh] px-4 sm:px-0 w-full mobile-container">
       {/* KLIPR Logo */}
       <div className="flex flex-col items-center">
-        <div className="flex overflow-hidden animation-container">
-          {Array.from(text).map((letter, index) => (
-            <div
-              key={index}
-              className="text-4xl sm:text-6xl md:text-8xl font-bold relative custom-font safe-animation"
-              style={{
-                animation: `fadeIn 0.8s ease-in-out ${index * 0.05}s forwards`,
-                opacity: 0,
-                transform: "translateY(20px)",
-              }}
-            >
-              {letter}
-            </div>
-          ))}
-          <div
-            className="text-4xl sm:text-6xl md:text-8xl font-bold relative custom-font"
-            style={{
-              animation: `fadeIn 0.8s ease-in-out ${text.length * 0.05}s forwards, blink 1s infinite ${text.length * 0.05 + 0.8}s`,
-              opacity: 0,
-              transform: "translateY(20px)",
-            }}
-          >
-            .
-          </div>
-        </div>
         <div 
-          className="text-sm sm:text-base md:text-lg font-mono tracking-[0.2em] mt-2 mb-15 sm:mb-6"
+          className="animation-container flex flex-col items-center"
           style={{
-            animation: `fadeIn 0.8s ease-in-out ${text.length * 0.05 + 0.2}s forwards`,
+            animation: `fadeIn 0.8s ease-out forwards`,
             opacity: 0,
+            transform: "translateY(20px)",
           }}
         >
-          M E D I A
+          <img 
+            src="/klipr-logo.png" 
+            alt="KLIPR Media Logo" 
+            className="w-48 md:w-64 mt-12"
+          />
         </div>
       </div>
       

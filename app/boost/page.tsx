@@ -84,9 +84,12 @@ export default function BoostPage() {
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] flex flex-col boost-page-font">
       {/* Header */}
       <header className="w-full py-6 px-4 sm:px-8 flex justify-between items-center">
-        <Link href="/" className="text-3xl font-bold custom-font flex flex-col items-center">
-          <span>KLIPR<span className="blink-cursor">.</span></span>
-          <span className="text-xs font-mono tracking-[0.2em] mt-1">M E D I A</span>
+        <Link href="/" className="flex items-center">
+          <img 
+            src="/klipr-logo.png" 
+            alt="KLIPR Media Logo" 
+            className="h-20 sm:h-24"
+          />
         </Link>
         <nav className="hidden sm:flex gap-8 font-mono text-sm">
           <a href="#contact" className="hover:underline">CONTACT</a>
