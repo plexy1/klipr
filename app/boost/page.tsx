@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, ChangeEvent, FormEvent } from "react";
 
 interface FormData {
@@ -85,10 +86,12 @@ export default function BoostPage() {
       {/* Header */}
       <header className="w-full py-6 px-4 sm:px-8 flex justify-between items-center">
         <Link href="/" className="flex items-center">
-          <img 
+          <Image 
             src="/klipr-logo.png" 
             alt="KLIPR Media Logo" 
-            className="h-20 sm:h-24"
+            width={96}
+            height={96}
+            className="h-20 sm:h-24 w-auto"
           />
         </Link>
         <nav className="hidden sm:flex gap-8 font-mono text-sm">

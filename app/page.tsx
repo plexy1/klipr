@@ -2,6 +2,7 @@
 
 import { Suspense, useState, MouseEvent } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Home() {
   const router = useRouter();
@@ -17,7 +18,6 @@ export default function Home() {
     }, 1700); // Slightly longer than the animation duration
   };
   
-  const text = "KLIPR";
   const terminalLines = [
     "Transform your brand's reach with data-driven creativity.",
     "Where innovation meets impact.",
@@ -60,7 +60,6 @@ export default function Home() {
     <div className="flex items-center justify-center min-h-screen bg-[var(--background)] text-[var(--foreground)] overflow-hidden">
       <Suspense fallback={<div>Loading...</div>}>
         <KliprLoadingAnimation 
-          text={text}
           terminalLines={terminalLines}
           getLineDelay={getLineDelay}
           getTypingDuration={getTypingDuration}
@@ -105,7 +104,6 @@ export default function Home() {
 }
 
 interface KliprLoadingAnimationProps {
-  text: string;
   terminalLines: string[];
   getLineDelay: (index: number) => number;
   getTypingDuration: (index: number) => number;
@@ -116,7 +114,6 @@ interface KliprLoadingAnimationProps {
 }
 
 function KliprLoadingAnimation({ 
-  text, 
   terminalLines, 
   getLineDelay, 
   getTypingDuration, 
@@ -137,9 +134,11 @@ function KliprLoadingAnimation({
             transform: "translateY(20px)",
           }}
         >
-          <img 
+          <Image 
             src="/klipr-logo.png" 
             alt="KLIPR Media Logo" 
+            width={256}
+            height={256}
             className="w-48 md:w-64 mt-12"
           />
         </div>
