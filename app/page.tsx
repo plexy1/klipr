@@ -139,7 +139,14 @@ function KliprLoadingAnimation({
             alt="KLIPR Media Logo" 
             width={256}
             height={256}
-            className="w-48 md:w-64 mt-12"
+            className="w-40 md:w-56 mt-16 block dark:hidden"
+          />
+          <Image 
+            src="/klipr-logo-dark.png" 
+            alt="KLIPR Media Logo" 
+            width={256}
+            height={256}
+            className="w-40 md:w-56 mt-16 hidden dark:block"
           />
         </div>
       </div>

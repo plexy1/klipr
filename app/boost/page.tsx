@@ -91,7 +91,14 @@ export default function BoostPage() {
             alt="KLIPR Media Logo" 
             width={96}
             height={96}
-            className="h-20 sm:h-24 w-auto"
+            className="h-20 sm:h-24 w-auto block dark:hidden"
+          />
+          <Image 
+            src="/klipr-logo-dark.png" 
+            alt="KLIPR Media Logo" 
+            width={96}
+            height={96}
+            className="h-20 sm:h-24 w-auto hidden dark:block"
           />
         </Link>
         <nav className="hidden sm:flex gap-8 font-mono text-sm">

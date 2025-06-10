@@ -30,7 +30,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #171717;
     --foreground: #ededed;
     --glow-color: rgba(255, 255, 255, 0.3);
     --terminal-bg: rgba(0, 0, 0, 0.85);
