@@ -44,7 +44,11 @@ export default function BoostPage() {
     try {
       // Replace with your actual Google Sheets API endpoint
       // This should be the published web app URL from your Google Apps Script
-      const sheetUrl = "https://script.google.com/macros/s/AKfycbzIxq8fdMB0qgRyy8OQ-yHjBV5LuKt7q7k9tylap5jPecjZ6qK9ru637XCk9b4XVGsX0Q/exec";
+      const sheetUrl = process.env.NEXT_PUBLIC_SHEETS_API_URL;
+      
+      if (!sheetUrl) {
+        throw new Error("Google Sheets API URL not configured");
+      }
       
       await fetch(sheetUrl, {
         method: "POST",
